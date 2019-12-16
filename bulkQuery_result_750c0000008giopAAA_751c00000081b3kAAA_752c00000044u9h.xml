@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?><queryResult xmlns="http://www.force.com/2009/06/asyncapi/dataload" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006M8ECAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchChildAddress</DeveloperName></AuraDefinitionBundle><Source>&lt;aura:component controller=&quot;Meyer_FetchAccounts&quot; implements=&quot;flexipage:availableForRecordHome,force:hasRecordId&quot; access=&quot;global&quot; &gt;
+    &lt;aura:attribute name=&quot;OrderRecordTypeName&quot; type=&quot;String&quot;/&gt;
+    &lt;aura:attribute name=&quot;dispalycAddress&quot; type=&quot;Boolean&quot; default =&quot;false&quot;/&gt;
+    &lt;aura:attribute name=&quot;cAccounts&quot; type=&quot;List&quot;/&gt;
+    &lt;aura:handler name=&quot;init&quot; value=&quot;{!this}&quot; action=&quot;{!c.doInit}&quot;/&gt;
+    &lt;ui:button aura:id=&quot;button&quot; class=&quot;button&quot; label=&quot;Search Address&quot; press=&quot;{!c.showAddress}&quot;/&gt;
+    &lt;aura:if isTrue=&quot;{!v.dispalycAddress}&quot;&gt;
+        &lt;aura:if isTrue=&quot;{!v.cAccounts.length &gt; 0}&quot;&gt;
+            &lt;div class=&quot;demo-only&quot; style=&quot;height: 640px;&quot;&gt;
+                &lt;section role=&quot;dialog&quot; tabindex=&quot;-1&quot; aria-labelledby=&quot;modal-heading-01&quot; aria-modal=&quot;true&quot; aria-describedby=&quot;modal-content-id-1&quot; class=&quot;slds-modal slds-fade-in-open&quot;&gt;
+                    
+                    &lt;div class=&quot;slds-modal__container&quot;&gt;
+                        
+                        &lt;header class=&quot;slds-modal__header&quot;&gt;
+                            &lt;button id=&quot;auraId&quot; class=&quot;slds-button slds-notify__close slds-button-icon-inverse&quot; title=&quot;close&quot; style=&quot;float:right;&quot;&gt;
+                           &lt;lightning:buttonIcon class=&quot;clrcls&quot; iconName=&quot;utility:close&quot; variant=&quot;bare&quot; onclick=&quot;{!c.handleClick}&quot; alternativeText=&quot;Close window&quot;/&gt;
+                        &lt;/button&gt;
+                            &lt;h2 id=&quot;modal-heading-01&quot; class=&quot;slds-text-heading_medium slds-hyphenate&quot;&gt;Select Child Address&lt;/h2&gt;
+                        &lt;/header&gt;
+                        &lt;div class=&quot;slds-modal__content slds-p-around_medium&quot; id=&quot;modal-content-id-1&quot;&gt;
+                            
+                                    &lt;table&gt;
+                                        &lt;thead&gt;
+                                            &lt;tr&gt;
+                                                &lt;td&gt;Name&lt;/td&gt;
+                                                &lt;td&gt;&lt;aura:if isTrue=&quot;{!v.OrderRecordTypeName == &apos;Meyer Order Record Type&apos;}&quot;&gt;
+                                                    	Billing Address
+                                                    &lt;/aura:if&gt;
+                                                &lt;/td&gt;
+                                                &lt;td&gt;Shipping Address&lt;/td&gt;
+                                            &lt;/tr&gt;
+                                        &lt;/thead&gt;
+                                        &lt;tbody&gt;
+                                            &lt;aura:iteration items=&quot;{!v.cAccounts}&quot; var=&quot;account&quot;&gt;
+                                                &lt;tr&gt;
+                                                    &lt;td&gt;
+                                                        {!account.Name}
+                                                    &lt;/td&gt;
+                                                    &lt;td&gt;
+                                                        &lt;aura:if isTrue=&quot;{!or(account.BillingStreet != null,account.BillingCity != null,account.BillingState != null)}&quot;&gt;
+                                                        	&lt;lightning:button variant=&quot;base&quot; label=&quot;{!account.BillingStreet + &apos;,&apos;+account.BillingCity
+                                                                                                +&apos;,&apos;+account.BillingState +&apos;,&apos;+account.BillingPostalCode
+                                                                                                +&apos;,&apos;+account.BillingCountry}&quot; value=&quot;B&quot; title=&quot;{!account}&quot; onclick=&quot;{!c.updateAccount}&quot;/&gt;
+                                                        &lt;/aura:if&gt;
+                                                    &lt;/td&gt;
+                                                    &lt;td&gt;
+                                                        &lt;aura:if isTrue=&quot;{!or(account.ShippingStreet != null,account.ShippingCity != null,account.ShippingState != null)}&quot;&gt;
+                                                        	&lt;lightning:button variant=&quot;base&quot; label=&quot;{!account.ShippingStreet + &apos;,&apos;+account.ShippingCity
+                                                                                                +&apos;,&apos;+account.ShippingState +&apos;,&apos;+account.ShippingPostalCode
+                                                                                                +&apos;,&apos;+account.ShippingCountry}&quot; value=&quot;S&quot; title=&quot;{!account}&quot; onclick=&quot;{!c.updateAccount}&quot;/&gt;
+                                                        &lt;/aura:if&gt;
+                                                    &lt;/td&gt;
+                                                &lt;/tr&gt;
+                                            &lt;/aura:iteration&gt;
+                                        &lt;/tbody&gt;
+                                    &lt;/table&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/section&gt;
+                &lt;div class=&quot;slds-backdrop slds-backdrop_open&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/aura:if&gt;
+    &lt;/aura:if&gt;
+&lt;/aura:component&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006M8ECAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchChildAddress</DeveloperName></AuraDefinitionBundle><Source>({
+    doInit : function(component, event, helper) {
+        var action=component.get(&quot;c.getOrderRecordTypeName&quot;);
+        action.setParams({&quot;objId&quot;:component.get(&quot;v.recordId&quot;)});
+        	action.setCallback(this, function(a){
+                component.set(&quot;v.OrderRecordTypeName&quot;,a.getReturnValue());
+        });
+    },
+    handleClick : function(component, event, helper) {
+        component.set(&quot;v.dispalycAddress&quot;,false);
+        $A.get(&quot;e.force:refreshView&quot;).fire();
+    },
+	showAddress : function(component, event, helper) {
+		component.set(&quot;v.dispalycAddress&quot;,true);
+        var action=component.get(&quot;c.fetchChildAccounts&quot;);
+        action.setParams({&quot;objId&quot;:component.get(&quot;v.recordId&quot;)});
+        action.setCallback(this, function(a){
+            var state = a.getState();
+            if (state === &quot;SUCCESS&quot;) {
+                var response =a.getReturnValue();
+                console.log(response);
+                if(response.length&gt;0)
+                {
+                    component.set(&quot;v.cAccounts&quot;,response);
+                }else{
+                    alert(&apos;No Child Accounts&apos;);
+                }
+            }
+        });
+        $A.enqueueAction(action);
+	},
+    
+    updateAccount : function(component, event, helper) {
+        var childAccount = event.getSource().get(&quot;v.title&quot;);
+        var fieldName =event.getSource().get(&quot;v.value&quot;);
+        var action=component.get(&quot;c.updatePAccount&quot;);
+        action.setParams({&quot;objId&quot;:component.get(&quot;v.recordId&quot;),&quot;cAccount&quot;: childAccount,&quot;field&quot;:fieldName});
+        action.setCallback(this, function(a){
+            var state = a.getState();
+            if (state === &quot;SUCCESS&quot;) {
+                var response =a.getReturnValue();
+                if(response != &apos;Record updated&apos;){
+                   alert(&apos;Error While updating the parent account: &apos;+response);  
+                }else{
+					component.set(&quot;v.dispalycAddress&quot;,false);
+                    $A.get(&quot;e.force:refreshView&quot;).fire();
+                }
+            }
+        });
+        $A.enqueueAction(action);
+    }
+})</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006M8ECAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchChildAddress</DeveloperName></AuraDefinitionBundle><Source>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;svg width=&quot;120px&quot; height=&quot;120px&quot; viewBox=&quot;0 0 120 120&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+	&lt;g stroke=&quot;none&quot; stroke-width=&quot;1&quot; fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;&gt;
+		&lt;path d=&quot;M120,108 C120,114.6 114.6,120 108,120 L12,120 C5.4,120 0,114.6 0,108 L0,12 C0,5.4 5.4,0 12,0 L108,0 C114.6,0 120,5.4 120,12 L120,108 L120,108 Z&quot; id=&quot;Shape&quot; fill=&quot;#2A739E&quot;/&gt;
+		&lt;path d=&quot;M77.7383308,20 L61.1640113,20 L44.7300055,63.2000173 L56.0543288,63.2000173 L40,99.623291 L72.7458388,54.5871812 L60.907727,54.5871812 L77.7383308,20 Z&quot; id=&quot;Path-1&quot; fill=&quot;#FFFFFF&quot;/&gt;
+	&lt;/g&gt;
+&lt;/svg&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006PuVCAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchOrderOpportuities</DeveloperName></AuraDefinitionBundle><Source>({
+	doInit : function(component, event, helper) {
+        var action=component.get(&quot;c.getCaseInfo&quot;);
+        action.setParams({&quot;caseId&quot;:component.get(&quot;v.recordId&quot;)});
+        action.setCallback(this,function(response){
+            console.log(response.getReturnValue());
+            var caseObj=response.getReturnValue();
+            component.set(&quot;v.objName&quot;,caseObj.Containers_Change_Type__c);
+            var objAction = component.get(&quot;c.getLookupValues&quot;);
+            objAction.setParams({
+                objName:&quot;Opportunity&quot;,
+                fieldName:component.get(&quot;v.fieldName&quot;)
+            });
+            objAction.setCallback(this,function(a)
+            {
+                component.set(&quot;v.fieldValue&quot;,a.getReturnValue());
+            });
+            $A.enqueueAction(objAction);
+        });
+	},
+    
+    /*({
+	doInit : function(component, event, helper) {
+		console.log(&apos;Lookup Component&apos;);
+        //console.log(component.get(&quot;objName&quot;));
+        var action = component.get(&quot;c.getLookupValues&quot;);
+        action.setParams({
+            objName:component.get(&quot;v.objName&quot;),
+            fieldName:component.get(&quot;v.fieldName&quot;)
+		});
+        action.setCallback(this,function(a)
+		{
+			component.set(&quot;v.fieldValue&quot;,a.getReturnValue());
+		});
+        $A.enqueueAction(action);
+	}
+})*/
+
+  
+	keyPressController : function(component, event, helper) {
+      // get the search Input keyword   
+		var getInputkeyWord = component.get(&quot;v.SearchKeyWord&quot;);
+        console.log(&apos;keyPressController Lookup&apos;);
+        console.log(getInputkeyWord);
+      // check if getInputKeyWord size id more then 0 then open the lookup result List and 
+      // call the helper 
+      // else close the lookup result List part.   
+        if( getInputkeyWord.length &gt; 0 ){
+             var forOpen = component.find(&quot;searchRes&quot;);
+               $A.util.addClass(forOpen, &apos;slds-is-open&apos;);
+               $A.util.removeClass(forOpen, &apos;slds-is-close&apos;);
+            helper.searchHelper(component,event,getInputkeyWord);
+        }
+        else{  
+            component.set(&quot;v.listOfSearchRecords&quot;, null ); 
+             var forclose = component.find(&quot;searchRes&quot;);
+               $A.util.addClass(forclose, &apos;slds-is-close&apos;);
+               $A.util.removeClass(forclose, &apos;slds-is-open&apos;);
+          }
+         
+	},
+  
+  // function for clear the Record Selaction 
+    clear :function(component,event,heplper){
+      
+         var pillTarget = component.find(&quot;lookup-pill&quot;);
+         var lookUpTarget = component.find(&quot;lookupField&quot;); 
+        
+         $A.util.addClass(pillTarget, &apos;slds-hide&apos;);
+         $A.util.removeClass(pillTarget, &apos;slds-show&apos;);
+        
+         $A.util.addClass(lookUpTarget, &apos;slds-show&apos;);
+         $A.util.removeClass(lookUpTarget, &apos;slds-hide&apos;);
+      
+         component.set(&quot;v.SearchKeyWord&quot;,null);
+         component.set(&quot;v.listOfSearchRecords&quot;, null );
+    },
+    
+  // This function call when the end User Select any record from the result list.   
+    handleComponentEvent : function(component, event, helper) {
+     
+    // get the selected Account record from the COMPONETN event 	 
+       var selectedAccountGetFromEvent = event.getParam(&quot;accountByEvent&quot;);
+	   
+	   component.set(&quot;v.selectedRecord&quot; , selectedAccountGetFromEvent); 
+	   component.set(&quot;v.datavalue&quot; , selectedAccountGetFromEvent.Id); 
+       
+        var forclose = component.find(&quot;lookup-pill&quot;);
+           $A.util.addClass(forclose, &apos;slds-show&apos;);
+           $A.util.removeClass(forclose, &apos;slds-hide&apos;);
+      
+        
+        var forclose = component.find(&quot;searchRes&quot;);
+           $A.util.addClass(forclose, &apos;slds-is-close&apos;);
+           $A.util.removeClass(forclose, &apos;slds-is-open&apos;);
+        
+        var lookUpTarget = component.find(&quot;lookupField&quot;);
+            $A.util.addClass(lookUpTarget, &apos;slds-hide&apos;);
+            $A.util.removeClass(lookUpTarget, &apos;slds-show&apos;);  
+      
+	},
+  // automatically call when the component is done waiting for a response to a server request.  
+    hideSpinner : function (component, event, helper) {
+        var spinner = component.find(&apos;spinner&apos;);
+        var evt = spinner.get(&quot;e.toggle&quot;);
+        evt.setParams({ isVisible : false });
+        evt.fire();    
+    },
+ // automatically call when the component is waiting for a response to a server request.
+    showSpinner : function (component, event, helper) {
+        var spinner = component.find(&apos;spinner&apos;);
+        var evt = spinner.get(&quot;e.toggle&quot;);
+        evt.setParams({ isVisible : true });
+        evt.fire();    
+    },
+    /*({
+	doInit : function(component, event, helper) {
+		console.log(&apos;Lookup Component&apos;);
+        //console.log(component.get(&quot;objName&quot;));
+        var action = component.get(&quot;c.getLookupValues&quot;);
+        action.setParams({
+            objName:component.get(&quot;v.objName&quot;),
+            fieldName:component.get(&quot;v.fieldName&quot;)
+		});
+        action.setCallback(this,function(a)
+		{
+			component.set(&quot;v.fieldValue&quot;,a.getReturnValue());
+		});
+        $A.enqueueAction(action);
+	}
+})*/
+
+})</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006PuVCAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchOrderOpportuities</DeveloperName></AuraDefinitionBundle><Source>&lt;aura:component controller=&quot;Meyer_CaseController&quot; implements=&quot;flexipage:availableForRecordHome,force:hasRecordId&quot; access=&quot;global&quot; &gt;
+    &lt;aura:attribute name=&quot;objName&quot; type=&quot;String&quot;/&gt;
+    
+    &lt;aura:handler name=&quot;init&quot; value=&quot;{!this}&quot; action=&quot;{!c.doInit}&quot;/&gt;
+    {!v.objName}    
+    
+    &lt;div class=&quot;slds-m-around--large&quot;&gt;
+      &lt;div aura:id=&quot;searchRes&quot; class=&quot;slds-form-element slds-lookup slds-is-close&quot; data-select=&quot;single&quot;&gt;
+         &lt;label class=&quot;slds-form-element__label&quot; for=&quot;lookup-348&quot;&gt; {!v.fieldName} &lt;/label&gt;
+         &lt;!--This part is for display search bar for lookup--&gt;  
+         &lt;div class=&quot;slds-form-element__control&quot;&gt;
+            &lt;div class=&quot;slds-input-has-icon slds-input-has-icon--right&quot;&gt;
+               &lt;!-- This markup is for when an record is selected --&gt;
+               &lt;div aura:id=&quot;lookup-pill&quot; class=&quot;slds-pill-container slds-hide&quot;&gt;
+                  &lt;span class=&quot;slds-pill&quot;&gt;
+                     &lt;span class=&quot;slds-pill__label&quot;&gt;
+                       {!v.selectedRecord.Name}  
+                     &lt;/span&gt;
+                     &lt;button class=&quot;slds-button slds-button--icon slds-pill__remove&quot; onclick=&quot;{!c.clear}&quot;&gt;
+                        &lt;span class=&quot;slds-assistive-text&quot;&gt;Remove&lt;/span&gt;
+                     &lt;/button&gt;
+                  &lt;/span&gt;
+               &lt;/div&gt;
+              &lt;div aura:id=&quot;lookupField&quot; class=&quot;slds-show&quot;&gt;
+               &lt;ui:inputText updateOn=&quot;keyup&quot; keyup=&quot;{!c.keyPressController}&quot; class=&quot;slds-lookup__search-input slds-input &quot; value=&quot;{!v.SearchKeyWord}&quot; placeholder=&quot;search..&quot;/&gt;
+              &lt;/div&gt;   
+            &lt;/div&gt;
+         &lt;/div&gt;
+         &lt;!--This part is for Display typehead lookup result List--&gt;  
+         &lt;div class=&quot;slds-lookup__menu slds&quot; id=&quot;lookup-348&quot;&gt;
+            &lt;div class=&quot;slds-lookup__item--label slds-text-body--small&quot;&gt;{!v.Message}&lt;/div&gt;
+            &lt;center&gt; &lt;ui:spinner aura:id=&quot;spinner&quot;/&gt; &lt;/center&gt;
+            &lt;ul class=&quot;slds-lookup__list&quot; role=&quot;listbox&quot;&gt;
+               &lt;aura:iteration items=&quot;{!v.listOfSearchRecords}&quot; var=&quot;singleRec&quot;&gt;
+                  &lt;c:Meyer_customLookupResult oAccount=&quot;{!singleRec}&quot; /&gt;
+               &lt;/aura:iteration&gt;
+            &lt;/ul&gt;
+         &lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/div&gt;
+&lt;/aura:component&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006Pv9CAE</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_LookupChooseEvent</DeveloperName></AuraDefinitionBundle><Source>&lt;!--LookupChooseEvent --&gt;
+
+&lt;aura:event type=&quot;COMPONENT&quot; description=&quot;by this event we are pass the selected account in the parent component&quot;&gt;
+    &lt;aura:attribute name=&quot;accountByEvent&quot; type=&quot;Sobject&quot;/&gt;
+&lt;/aura:event&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006PvECAU</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_customLookupResult</DeveloperName></AuraDefinitionBundle><Source>&lt;!--customLookupResult--&gt;
+&lt;aura:component &gt;
+    &lt;aura:attribute name=&quot;oAccount&quot; type=&quot;Account&quot; /&gt;
+  &lt;!--Register the component level event--&gt;
+    &lt;aura:registerEvent name=&quot;oSelectedAccountEvent&quot; type=&quot;c:Meyer_LookupChooseEvent&quot;/&gt;
+    
+    &lt;li role=&quot;presentation&quot;&gt;
+        &lt;span class=&quot;slds-lookup__item-action slds-media slds-media--center&quot; id=&quot;lookup-option-350&quot; role=&quot;option&quot;&gt;
+         &lt;div class=&quot;slds-media__body&quot;&gt;
+          &lt;div class=&quot;slds-input-has-icon slds-input-has-icon--right&quot;&gt;
+            &lt;div class=&quot;slds-lookup__result-text&quot;&gt;&lt;a onclick=&quot;{!c.selectAccount}&quot;&gt;{!v.oAccount.Name}&lt;/a&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;    
+        &lt;/span&gt;
+    &lt;/li&gt;
+&lt;/aura:component&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006RSdCAM</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchProducts</DeveloperName></AuraDefinitionBundle><Source>({
+    doInit: function(component, event, helper) {
+        console.log(&apos;doInit&apos;);
+        var action=component.get(&quot;c.fetchPickListValues&quot;);
+        action.setParams({&quot;fieldName&quot;:&apos;Containers_Product_Category__c&apos;,&quot;whereCondition&quot;:&apos;&apos;});
+        action.setCallback(this,function(response){
+            console.log(response.getState());
+            console.log(response.getReturnValue());
+            if(response.getReturnValue().length &gt;0)
+            {
+            	component.set(&quot;v.categories&quot;,response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(action);
+    },
+    
+    categorySelected : function(component, event, helper) {
+        	component.set(&quot;v.scroll&quot;,true);
+        	var selectedvalue = component.find(&quot;categoryValue&quot;).get(&quot;v.value&quot;);
+            console.log(&apos;Category Selected ::&apos;+selectedvalue);
+        	component.set(&quot;v.category&quot;,selectedvalue);
+            var action=component.get(&quot;c.fetchPickListValues&quot;);
+            action.setParams({&quot;fieldName&quot;:&apos;Containers_Product_Subcategory__c&apos;,&quot;whereCondition&quot;:&apos;Containers_Product_Category__c:&apos;+selectedvalue});
+            action.setCallback(this,function(response){
+                console.log(response.getState());
+                console.log(response.getReturnValue());
+                if(response.getReturnValue().length &gt;0)
+                {
+                    component.set(&quot;v.subcategories&quot;,response.getReturnValue());
+                    component.set(&quot;v.scroll&quot;,false);
+                }
+            });
+        	$A.enqueueAction(action);
+    },
+    subcategorySelected : function(component, event, helper) {
+        	component.set(&quot;v.scroll&quot;,true);
+        	var selectedvalue = component.find(&quot;subCategoryValue&quot;).get(&quot;v.value&quot;);
+        	console.log(&apos;Sub Category Selected :: &apos;+selectedvalue);
+        	component.set(&quot;v.subcategory&quot;,selectedvalue);
+        	var whereCondition=&apos;Containers_Product_Category__c:&apos;+component.get(&quot;v.category&quot;)+&apos;,&apos;;
+        		whereCondition +=&apos;Containers_Product_Subcategory__c:&apos;+selectedvalue;
+            var action=component.get(&quot;c.fetchPickListValues&quot;);
+            action.setParams({&quot;fieldName&quot;:&apos;Containers_Item_Class__c&apos;,&quot;whereCondition&quot;:whereCondition});
+            action.setCallback(this,function(response){
+                console.log(response.getState());
+                console.log(response.getReturnValue());
+                if(response.getReturnValue().length &gt;0)
+                {
+                    component.set(&quot;v.itemClasses&quot;,response.getReturnValue());
+                    component.set(&quot;v.scroll&quot;,false);
+                }
+            });
+        	$A.enqueueAction(action);
+    },
+    
+    itemClassSelected : function(component, event, helper) {
+        	var selectedvalue = component.find(&quot;itemClassesValue&quot;).get(&quot;v.value&quot;);
+        	console.log(&apos;Item Class Selected :: &apos;+selectedvalue);
+        	component.set(&quot;v.itemClass&quot;,selectedvalue);
+    },
+    
+    tankVolumeSelected : function(component, event, helper) {
+        	component.set(&quot;v.scroll&quot;,true);
+        	var selectedvalue = component.find(&quot;tankVolumesValue&quot;).get(&quot;v.value&quot;);
+        	console.log(&apos;Tank Volume Selected :: &apos;+selectedvalue);
+        	component.set(&quot;v.tankVolume&quot;,selectedvalue);
+        	var whereCondition =&apos;Containers_Tank_Volume__c:&apos;+selectedvalue+&apos;,&apos;;
+        		whereCondition +=&apos;Containers_Product_Category__c:&apos;+component.get(&quot;v.category&quot;)+&apos;,&apos;;
+        		whereCondition +=&apos;Containers_Product_Subcategory__c:&apos;+component.get(&quot;v.subcategory&quot;);
+            var action=component.get(&quot;c.fetchPickListValues&quot;);
+            action.setParams({&quot;fieldName&quot;:&apos;Containers_Item_Class__c&apos;,&quot;whereCondition&quot;:whereCondition});
+            action.setCallback(this,function(response){
+                console.log(response.getState());
+                console.log(response.getReturnValue());
+                if(response.getReturnValue().length &gt;0)
+                {
+                    component.set(&quot;v.itemClasses&quot;,response.getReturnValue());
+                    component.set(&quot;v.scroll&quot;,false);
+                }
+            });
+        	$A.enqueueAction(action);
+    },
+    
+    cpButton : function(component, event, helper) {
+        component.set(&quot;v.createProduct&quot;,&apos;true&apos;);
+        // Prepare a new record from template
+        component.find(&quot;productRecordCreator&quot;).getNewRecord(
+            &quot;Product2&quot;, // sObject type (objectApiName)
+            &quot;012c00000005iYp&quot;,      // recordTypeId
+            false,     // skip cache?
+            $A.getCallback(function() {
+                var rec = component.get(&quot;v.newProduct&quot;);
+                var error = component.get(&quot;v.newProductError&quot;);
+                if(error || (rec === null)) {
+                    console.log(&quot;Error initializing record template: &quot; + error);
+                    return;
+                }
+                console.log(&quot;Record template initialized: &quot; + rec.sobjectType);
+            })
+        );
+    },
+    
+    handleSaveProduct: function(component, event, helper) {
+        component.set(&quot;v.scroll&quot;,true);
+        component.find(&quot;productRecordCreator&quot;).saveRecord(function(saveResult) {
+            if (saveResult.state === &quot;SUCCESS&quot; || saveResult.state === &quot;DRAFT&quot;) {
+                // record is saved successfully
+                console.log(JSON.stringify(saveResult));
+                console.log(saveResult.recordId);
+                var action=component.get(&quot;c.createOppLineItem&quot;);
+                action.setParams({&quot;prodId&quot;:saveResult.recordId,
+                                 &quot;oppId&quot;:component.get(&quot;v.recordId&quot;)}); 
+                action.setCallback(this,function(response){
+                    var responsemsg=response.getReturnValue();
+                    if(responsemsg.startsWith(&apos;Error&apos;))
+                    {
+                        component.find(&apos;notifLib&apos;).showNotice({
+                            &quot;variant&quot;: &quot;error&quot;,
+                            &quot;header&quot;: &quot;Something has gone wrong!&quot;,
+                            &quot;message&quot;: responsemsg,
+                        });
+                    }else{
+                        var navEvt = $A.get(&quot;e.force:navigateToSObject&quot;);
+                        navEvt.setParams({&quot;recordId&quot;: component.get(&quot;v.recordId&quot;)});
+                        navEvt.fire();
+                    }
+                    event.getSource().set(&quot;v.disabled&quot;, false);
+                });
+                $A.enqueueAction(action);
+                
+            } else if (saveResult.state === &quot;INCOMPLETE&quot;) {
+                // handle the incomplete state
+                console.log(&quot;User is offline, device doesn&apos;t support drafts.&quot;);
+            } else if (saveResult.state === &quot;ERROR&quot;) {
+                component.find(&apos;notifLib&apos;).showNotice({
+                    &quot;variant&quot;: &quot;error&quot;,
+                    &quot;header&quot;: &quot;Something has gone wrong!&quot;,
+                    &quot;message&quot;: JSON.stringify(saveResult.error),
+                });
+            } else {
+                component.find(&apos;notifLib&apos;).showNotice({
+                    &quot;variant&quot;: &quot;error&quot;,
+                    &quot;header&quot;: &quot;Something has gone wrong!&quot;,
+                    &quot;message&quot;: JSON.stringify(saveResult.error),
+                });
+            }
+            component.set(&quot;v.scroll&quot;,false);
+            
+        });
+    },
+    
+	search : function(component, event, helper) {
+        component.set(&quot;v.scroll&quot;,true);
+        console.log(&apos;Search called category::&apos;+component.get(&quot;v.category&quot;));
+        console.log(&apos;Search called subcategory::&apos;+component.get(&quot;v.subcategory&quot;));
+        console.log(&apos;Search called itemClass::&apos;+component.get(&quot;v.itemClass&quot;));
+        console.log(&apos;Search called tankVolume::&apos;+component.get(&quot;v.tankVolume&quot;));
+        var action=component.get(&quot;c.searchContainerProducts&quot;);
+        action.setParams({&quot;category&quot;:component.get(&quot;v.category&quot;),
+                         &quot;subcategory&quot;:component.get(&quot;v.subcategory&quot;),
+                          &quot;itemClass&quot;:component.get(&quot;v.itemClass&quot;),
+                          &quot;tankVolume&quot;:component.get(&quot;v.tankVolume&quot;)}); 
+        action.setCallback(this,function(response){
+            console.log(response.getState());
+            console.log(response.getReturnValue());
+            console.log(response.getReturnValue().length);
+            if(response.getReturnValue().length &gt;0)
+            {
+            	component.set(&quot;v.products&quot;,response.getReturnValue());
+            }else{
+                component.set(&quot;v.products&quot;,null);
+                component.set(&quot;v.hasNoProducts&quot;,&apos;true&apos;);
+            }
+            component.set(&quot;v.scroll&quot;,false);
+        });
+        $A.enqueueAction(action);
+	},
+    
+    selecteProduct : function(component, event, helper) {
+        component.set(&quot;v.scroll&quot;,true);
+    	console.log(event.getSource().get(&apos;v.value&apos;));
+        console.log(component.get(&quot;v.recordId&quot;));
+        event.getSource().set(&quot;v.disabled&quot;, true);
+        var action=component.get(&quot;c.createOppProducts&quot;);
+        action.setParams({&quot;cTankProduct&quot;:event.getSource().get(&apos;v.value&apos;),
+                         &quot;oppId&quot;:component.get(&quot;v.recordId&quot;)}); 
+        action.setCallback(this,function(response){
+            console.log(response.getState());
+            console.log(response.getReturnValue());
+            var responsemsg=response.getReturnValue();
+            if(responsemsg.startsWith(&apos;Error&apos;))
+            {
+                component.find(&apos;notifLib&apos;).showNotice({
+                    &quot;variant&quot;: &quot;error&quot;,
+                    &quot;header&quot;: &quot;Something has gone wrong!&quot;,
+                    &quot;message&quot;: responsemsg,
+                });
+            }else{
+                component.set(&quot;v.products&quot;,response.getReturnValue());
+                var navEvt = $A.get(&quot;e.force:navigateToSObject&quot;);
+                navEvt.setParams({
+                  &quot;recordId&quot;: component.get(&quot;v.recordId&quot;)
+                });
+                navEvt.fire();
+            }
+            component.set(&quot;v.scroll&quot;,false);
+        });
+        $A.enqueueAction(action);
+    }
+        
+})</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006RSdCAM</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchProducts</DeveloperName></AuraDefinitionBundle><Source>&lt;aura:component controller=&quot;Containers_ProductsSearch&quot; implements=&quot;flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction&quot; access=&quot;global&quot; &gt;
+    &lt;aura:attribute name=&quot;createProduct&quot; type=&quot;boolean&quot; default=&quot;false&quot;/&gt;
+    &lt;aura:attribute name=&quot;hasNoProducts&quot; type=&quot;boolean&quot; default=&quot;false&quot;/&gt;
+    &lt;aura:attribute name=&quot;scroll&quot; type=&quot;boolean&quot; default=&quot;false&quot;/&gt;
+    
+    &lt;aura:attribute name=&quot;products&quot; type=&quot;Product2[]&quot;/&gt;
+    &lt;aura:attribute name=&quot;category&quot; type=&quot;String&quot;/&gt;
+    &lt;aura:attribute name=&quot;categories&quot; type=&quot;String[]&quot; /&gt;
+    &lt;aura:attribute name=&quot;subcategory&quot; type=&quot;String&quot;/&gt;
+    &lt;aura:attribute name=&quot;subcategories&quot; type=&quot;String[]&quot;/&gt;
+    &lt;aura:attribute name=&quot;itemClass&quot; type=&quot;String&quot;/&gt;
+    &lt;aura:attribute name=&quot;itemClasses&quot; type=&quot;String[]&quot;/&gt;
+    &lt;aura:attribute name=&quot;tankVolume&quot; type=&quot;String&quot;/&gt;
+    &lt;aura:attribute name=&quot;tankVolumes&quot; type=&quot;String[]&quot;/&gt;
+    
+    &lt;aura:attribute name=&quot;newProduct&quot; type=&quot;Product2&quot;/&gt;
+    &lt;aura:attribute name=&quot;simpleNewProduct&quot; type=&quot;Product2&quot; default=&quot;{ &apos;sobjectType&apos;: &apos;Product2&apos; }&quot;/&gt;
+    &lt;aura:attribute name=&quot;newProductError&quot; type=&quot;String&quot;/&gt;
+    
+    &lt;aura:handler name=&quot;init&quot; value=&quot;{!this}&quot; action=&quot;{!c.doInit}&quot; /&gt;
+	&lt;lightning:notificationsLibrary aura:id=&quot;notifLib&quot;/&gt;
+    
+    &lt;aura:if isTrue=&quot;{!v.scroll}&quot;&gt;
+		&lt;lightning:spinner alternativeText=&quot;Loading&quot; size=&quot;small&quot; /&gt;
+    &lt;/aura:if&gt;
+    
+    &lt;aura:if isTrue=&quot;{!v.createProduct}&quot;&gt;
+        &lt;force:recordData aura:id=&quot;productRecordCreator&quot; 
+                          layoutType=&quot;FULL&quot;
+                          targetRecord=&quot;{!v.newProduct}&quot;
+                          targetFields=&quot;{!v.simpleNewProduct}&quot;
+                          targetError=&quot;{!v.newProductError}&quot; /&gt;
+                          
+        &lt;!-- Display the new Product form --&gt;
+        &lt;div class=&quot;Create Product&quot;&gt;
+            &lt;lightning:card iconName=&quot;action:new_Product&quot; title=&quot;Create Product&quot;&gt;
+                &lt;div class=&quot;slds-p-horizontal--small&quot;&gt;
+                    &lt;lightning:input aura:id=&quot;ProductField&quot; label=&quot;Name&quot; value=&quot;{!v.simpleNewProduct.Name}&quot;/&gt;
+                    &lt;!--&lt;force:inputField aura:id=&quot;ProductFamily&quot; label=&quot;Product Family&quot; value=&quot;{!v.simpleNewProduct.Family}&quot;/&gt; --&gt;
+                    &lt;lightning:textarea label=&quot;Product Notes&quot; value=&quot;{!v.simpleNewProduct.Containers_Product_Notes__c}&quot; /&gt;
+                    &lt;lightning:input aura:id=&quot;ProductDescription&quot; label=&quot;Description&quot; value=&quot;{!v.simpleNewProduct.Description}&quot;/&gt;
+                    &lt;lightning:input aura:id=&quot;ItemClass&quot; label=&quot;Item Class&quot; value=&quot;{!v.simpleNewProduct.Containers_Item_Class__c}&quot;/&gt;
+                    &lt;lightning:input aura:id=&quot;ItemClassDescr&quot; label=&quot;Item Class Descr&quot; value=&quot;{!v.simpleNewProduct.Containers_Item_Class_Descr__c}&quot;/&gt;
+                    &lt;lightning:input aura:id=&quot;ItemDescr&quot; label=&quot;Item Descr&quot; value=&quot;{!v.simpleNewProduct.Containers_Item_Descr__c}&quot;/&gt;
+                    &lt;lightning:input aura:id=&quot;ItemNumber&quot; label=&quot;Item Number&quot; value=&quot;{!v.simpleNewProduct.Containers_Item_Number__c}&quot;/&gt;
+                   &lt;!-- &lt;lightning:input aura:id=&quot;Color&quot; label=&quot;Color&quot; value=&quot;{!v.simpleNewProduct.Containers_Color__c}&quot;/&gt; --&gt;
+                    &lt;br/&gt;
+                    &lt;lightning:button label=&quot;Save Product&quot; variant=&quot;brand&quot; onclick=&quot;{!c.handleSaveProduct}&quot;/&gt;
+                &lt;/div&gt;
+            &lt;/lightning:card&gt;
+        &lt;/div&gt;
+    
+        &lt;!-- Display Lightning Data Service errors --&gt;
+        &lt;aura:if isTrue=&quot;{!not(empty(v.newProductError))}&quot;&gt;
+            &lt;div class=&quot;recordError&quot;&gt;
+                {!v.newProductError}&lt;/div&gt;
+        &lt;/aura:if&gt;
+    &lt;/aura:if&gt;
+    &lt;aura:if isTrue=&quot;{!!v.createProduct}&quot;&gt;
+        &lt;div&gt;
+			&lt;lightning:button variant=&quot;base&quot; label=&quot;Create Product&quot; onclick=&quot;{!c.cpButton}&quot;/&gt;
+        &lt;/div&gt;
+    &lt;div class=&quot;slds-grid slds-wrap&quot;&gt;
+        &lt;div class=&quot;slds-col slds-size_1-of-2&quot;&gt;
+           &lt;!-- &lt;lightning:input name=&quot;input2&quot; label=&quot;Choice 1&quot; value=&quot;{!v.category}&quot;/&gt;--&gt;
+            &lt;lightning:select aura:id=&quot;categoryValue&quot; name=&quot;selectItem&quot; label=&quot;	Product Category&quot; onchange=&quot;{!c.categorySelected}&quot;&gt;
+                &lt;aura:iteration items=&quot;{!v.categories}&quot; var=&quot;object&quot;&gt;
+                    &lt;option value=&quot;{!object}&quot; text=&quot;{!object}&quot;&gt;&lt;/option&gt;
+                &lt;/aura:iteration&gt;
+            &lt;/lightning:select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;slds-col slds-size_1-of-2&quot;&gt;
+            &lt;!-- &lt;lightning:input name=&quot;input2&quot; label=&quot;Choice 2&quot; value=&quot;{!v.subcategory}&quot;/&gt; --&gt;
+            &lt;lightning:select aura:id=&quot;subCategoryValue&quot; name=&quot;selectItem&quot; label=&quot;Product Subcategory&quot; onchange=&quot;{!c.subcategorySelected}&quot;&gt;
+                &lt;aura:iteration items=&quot;{!v.subcategories}&quot; var=&quot;object&quot;&gt;
+                    &lt;option value=&quot;{!object}&quot; text=&quot;{!object}&quot;&gt;&lt;/option&gt;
+                &lt;/aura:iteration&gt;
+            &lt;/lightning:select&gt;
+        &lt;/div&gt;
+       &lt;!-- &lt;div class=&quot;slds-col slds-size_1-of-2&quot;&gt;
+            &lt;!-&lt;lightning:input name=&quot;input2&quot; label=&quot;Choice 3&quot; value=&quot;{!v.tankVolume}&quot;/&gt; -
+            &lt;lightning:select aura:id=&quot;tankVolumesValue&quot; name=&quot;selectItem&quot; label=&quot;Tank Volume&quot; onchange=&quot;{!c.tankVolumeSelected}&quot;&gt;
+                &lt;aura:iteration items=&quot;{!v.tankVolumes}&quot; var=&quot;object&quot;&gt;
+                    &lt;option value=&quot;{!object}&quot; text=&quot;{!object}&quot;&gt;&lt;/option&gt;
+                &lt;/aura:iteration&gt;
+            &lt;/lightning:select&gt;
+        &lt;/div&gt; --&gt;
+        &lt;div class=&quot;slds-col slds-size_1-of-2&quot;&gt;
+            &lt;!-- &lt;lightning:input name=&quot;input2&quot; label=&quot;Choice 4&quot; value=&quot;{!v.itemClass}&quot;/&gt; --&gt;
+            &lt;lightning:select aura:id=&quot;itemClassesValue&quot; name=&quot;selectItem&quot; label=&quot;Item Class&quot; onchange=&quot;{!c.itemClassSelected}&quot;&gt;
+                &lt;aura:iteration items=&quot;{!v.itemClasses}&quot; var=&quot;object&quot;&gt;
+                    &lt;option value=&quot;{!object}&quot; text=&quot;{!object}&quot;&gt;&lt;/option&gt;
+                &lt;/aura:iteration&gt;
+            &lt;/lightning:select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+        
+        
+    &lt;lightning:button variant=&quot;brand&quot; label=&quot;Search Products&quot; title=&quot;Search Products&quot; onclick=&quot;{!c.search}&quot;/&gt;
+        
+        
+        
+	&lt;aura:if isTrue=&quot;{!v.products.length &gt;0}&quot;&gt;
+    	&lt;table class=&quot;slds-table slds-table_cell-buffer slds-table_bordered&quot;&gt;
+        &lt;thead&gt;
+            	&lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Item Description (BPCS)&lt;/th&gt;
+                &lt;th&gt;Extra Description (BPCS)&lt;/th&gt;
+                &lt;th&gt;Color (SF)&lt;/th&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            
+                &lt;aura:iteration items=&quot;{!v.products}&quot; var=&quot;product&quot;&gt;
+                    &lt;tr class=&quot;slds-cell-wrap&quot;&gt;
+                        &lt;td&gt;
+                            &lt;div class=&quot;slds-truncate&quot;&gt;
+                                &lt;lightning:button value=&quot;{!product.Id}&quot; variant=&quot;base&quot; label=&quot;{!product.Name}&quot; onclick=&quot;{!c.selecteProduct}&quot;/&gt;
+                            &lt;/div&gt;
+                        &lt;/td&gt;
+                        &lt;td&gt;{!product.Containers_Item_Descr__c}&lt;/td&gt;
+                        &lt;td&gt;{!product.Containers_Extra_Descr__c}&lt;/td&gt;
+                        &lt;td&gt;{!product.Containers_Color__c}&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/aura:iteration&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+	&lt;/aura:if&gt;
+	&lt;aura:if isTrue=&quot;{!v.hasNoProducts}&quot;&gt;
+        &lt;div&gt;
+        	No Products Found
+        &lt;/div&gt;
+	&lt;/aura:if&gt;
+    &lt;/aura:if&gt;
+&lt;/aura:component&gt;</Source></records><records xsi:type="sObject"><type>AuraDefinition</type><Id xsi:nil="true"/><AuraDefinitionBundleId>0Abc00000006RSdCAM</AuraDefinitionBundleId><AuraDefinitionBundle xsi:type="sObject"><type>AuraDefinitionBundle</type><Id xsi:nil="true"/><DeveloperName>Meyer_SearchProducts</DeveloperName></AuraDefinitionBundle><Source>({
+	render : function(cmp, helper) {
+        var ret = this.superRender();
+        // do custom rendering here
+        console.log(&apos;render&apos;);
+        return ret;
+	},
+    
+    rerender : function(cmp, helper){
+        console.log(&apos;rerender&apos;);
+        this.superRerender();
+        // do custom rerendering here
+	},
+    
+    afterRender: function (component, helper) {
+        console.log(&apos;afterRender&apos;);
+    	this.superAfterRender();
+    	// interact with the DOM here
+	},
+    
+    unrender: function (component, helper) {
+        console.log(&apos;unrender&apos;);
+        this.superUnrender();
+        window.setTimeout(
+            $A.getCallback(function() {
+                $A.get(&apos;e.force:refreshView&apos;).fire();
+            }), 2500
+        );
+        
+        // do custom unrendering here
+	}
+})</Source></records></queryResult>
